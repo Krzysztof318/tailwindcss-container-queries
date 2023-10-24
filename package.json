@@ -1,5 +1,5 @@
 {
-  "name": "@krzysztof318/container-queries",
+  "name": "@krzysztof318/tw-container-queries",
   "version": "0.1.2",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
