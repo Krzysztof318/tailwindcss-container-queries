@@ -41,6 +41,8 @@ Start by marking an element as a container using the `qc-container` class, and t
 </div>
 ```
 
+Default `container-type` is `inline-size`.
+
 By default we provide [container sizes](#configuration) from `qc-sm` (`640px`) to `qc-2xl` (`1536px`).
 
 ### Max modifiers
