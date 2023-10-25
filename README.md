@@ -1,13 +1,15 @@
-# @tailwindcss/container-queries
+# @krzysztof318/tw-container-queries
 
 A plugin for Tailwind CSS v3.2+ that provides utilities for container queries.
+This is fork of original repo https://github.com/tailwindlabs/tailwindcss-container-queries
+I modificated prefix '@' to 'qc-' so now it works better with Razor syntax and I changed default breakpoints to same as tailwind breakpoints.
 
 ## Installation
 
 Install the plugin from npm:
 
 ```sh
-npm install @tailwindcss/container-queries
+npm install -D @krzysztof318/tw-container-queries
 ```
 
 Then add the plugin to your `tailwind.config.js` file:
@@ -19,7 +21,7 @@ module.exports = {
     // ...
   },
   plugins: [
-    require('@tailwindcss/container-queries'),
+    require('@krzysztof318/tw-container-queries'),
     // ...
   ],
 }
@@ -27,26 +29,26 @@ module.exports = {
 
 ## Usage
 
-Start by marking an element as a container using the `@container` class, and then applying styles based on the size of that container using the container variants like `@md:`, `@lg:`, and `@xl:`:
+Start by marking an element as a container using the `qc-container` class, and then applying styles based on the size of that container using the container variants like `qc-md:`, `qc-lg:`, and `qc-xl:`:
 
 ```html
-<div class="@container">
-  <div class="@lg:underline">
+<div class="qc-container">
+  <div class="qc-lg:underline">
     <!-- This text will be underlined when the container is larger than `32rem` -->
   </div>
 </div>
 ```
 
-By default we provide [container sizes](#configuration) from `@xs` (`20rem`) to `@7xl` (`80rem`).
+By default we provide [container sizes](#configuration) from `qc-sm` (`640px`) to `qc-2xl` (`1536px`).
 
 ### Named containers
 
-You can optionally name containers using a `@container/{name}` class, and then include that name in the container variants using classes like `@lg/{name}:underline`:
+You can optionally name containers using a `qc-container/{name}` class, and then include that name in the container variants using classes like `qc-lg/{name}:underline`:
 
 ```html
-<div class="@container/main">
+<div class="qc-container/main">
   <!-- ... -->
-  <div class="@lg/main:underline">
+  <div class="qc-lg/main:underline">
     <!-- This text will be underlined when the "main" container is larger than `32rem` -->
   </div>
 </div>
@@ -57,8 +59,8 @@ You can optionally name containers using a `@container/{name}` class, and then i
 In addition to using one of the [container sizes](#configuration) provided by default, you can also create one-off sizes using any arbitrary value:
 
 ```html
-<div class="@container">
-  <div class="@[17.5rem]:underline"></div>
+<div class="qc-container">
+  <div class="qc-[17.5rem]:underline"></div>
     <!-- This text will be underlined when the container is larger than `17.5rem` -->
   </div>
 </div>
@@ -66,20 +68,20 @@ In addition to using one of the [container sizes](#configuration) provided by de
 
 ### Removing a container
 
-To stop an element from acting as a container, use the `@container-normal` class.
+To stop an element from acting as a container, use the `qc-container-normal` class.
 
-<div class="@container xl:@container-normal">
+<div class="qc-container xl:qc-container-normal">
   <!-- ... -->
 </div>
 
 ### With a prefix
 
-If you have configured Tailwind to use a prefix, make sure to prefix both the `@container` class and any classes where you are using a container query modifier:
+If you have configured Tailwind to use a prefix, make sure to prefix both the `qc-container` class and any classes where you are using a container query modifier:
 
 ```html
-<div class="tw-@container">
+<div class="tw-qc-container">
   <!-- ... -->
-  <div class="@lg:tw-underline">
+  <div class="qc-lg:tw-underline">
     <!-- ... -->
   </div>
 </div>
@@ -89,19 +91,13 @@ If you have configured Tailwind to use a prefix, make sure to prefix both the `@
 
 By default we ship with the following configured values:
 
-| Name   | CSS                                          |
-| ------ | -------------------------------------------- |
-| `@xs`  | `@container (min-width: 20rem /* 320px */)`  |
-| `@sm`  | `@container (min-width: 24rem /* 384px */)`  |
-| `@md`  | `@container (min-width: 28rem /* 448px */)`  |
-| `@lg`  | `@container (min-width: 32rem /* 512px */)`  |
-| `@xl`  | `@container (min-width: 36rem /* 576px */)`  |
-| `@2xl` | `@container (min-width: 42rem /* 672px */)`  |
-| `@3xl` | `@container (min-width: 48rem /* 768px */)`  |
-| `@4xl` | `@container (min-width: 56rem /* 896px */)`  |
-| `@5xl` | `@container (min-width: 64rem /* 1024px */)` |
-| `@6xl` | `@container (min-width: 72rem /* 1152px */)` |
-| `@7xl` | `@container (min-width: 80rem /* 1280px */)` |
+| Name     | CSS                                          |
+| -------- | -------------------------------------------- |
+| `qc-sm`  | `@container (min-width: 640px)`  |
+| `qc-md`  | `@container (min-width: 768px)`  |
+| `qc-lg`  | `@container (min-width: 1024px)`  |
+| `qc-xl`  | `@container (min-width: 1280px)`  |
+| `qc-2xl` | `@container (min-width: 1536px)`  |
 
 You can configure which values are available for this plugin under the `containers` key in your `tailwind.config.js` file:
 
