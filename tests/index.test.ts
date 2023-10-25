@@ -269,9 +269,11 @@ it('container max & range queries', () => {
         container-type: inline-size;
       }
 
-      @container (width < 1024px) {
-        .qc-max-lg\:underline {
-          text-decoration-line: underline;
+      @container container1 (min-width: 768px) {
+        @container container1 (width < 1280px) {
+          .qc-md\/container1\:qc-max-xl\/container1\:underline {
+            text-decoration-line: underline;
+          }
         }
       }
 
@@ -281,17 +283,15 @@ it('container max & range queries', () => {
         }
       }
 
-      @container (min-width: 640px) {
-        @container (width < 1024px) {
-          .qc-sm\:qc-max-lg\:underline {
-            text-decoration-line: underline;
-          }
+      @container (width < 1024px) {
+        .qc-max-lg\:underline {
+          text-decoration-line: underline;
         }
       }
 
-      @container container1 (min-width: 768px) {
-        @container container1 (width < 1280px) {
-          .qc-md\/container1\:qc-max-xl\/container1\:underline {
+      @container (min-width: 640px) {
+        @container (width < 1024px) {
+          .qc-sm\:qc-max-lg\:underline {
             text-decoration-line: underline;
           }
         }

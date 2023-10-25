@@ -29,7 +29,7 @@ export = plugin(
       }
     )
 
-    const sort: (
+    const sortMin: (
       a: { value: string; modifier: string | null },
       b: { value: string; modifier: string | null }
     ) => number = (aVariant, zVariant) => {
@@ -57,6 +57,34 @@ export = plugin(
       return aLabel.localeCompare(zLabel, 'en', { numeric: true })
     }
 
+    const sortMax: (
+      a: { value: string; modifier: string | null },
+      b: { value: string; modifier: string | null }
+    ) => number = (aVariant, zVariant) => {
+      let a = parseFloat(aVariant.value)
+      let z = parseFloat(zVariant.value)
+
+      if (a === null || z === null) return 0
+
+      // Sort values themselves regardless of unit
+      if (z - a !== 0) return z - a
+
+      let aLabel = aVariant.modifier ?? ''
+      let zLabel = zVariant.modifier ?? ''
+
+      // Explicitly move empty labels to the end
+      if (aLabel === '' && zLabel !== '') {
+        return 1
+      } else if (aLabel !== '' && zLabel === '') {
+        return -1
+      }
+
+      // Sort labels opposite to alphabetically in the English locale
+      // We are intentionally overriding the locale because we do not want the sort to
+      // be affected by the machine's locale (be it a developer or CI environment)
+      return zLabel.localeCompare(aLabel, 'en', { numeric: true })
+    }
+
     matchVariant(
       'qc',
       (value = '', { modifier }) => {
@@ -66,7 +94,7 @@ export = plugin(
       },
       {
         values,
-        sort,
+        sort: sortMin,
       }
     )
 
@@ -79,7 +107,7 @@ export = plugin(
       },
       {
         values,
-        sort,
+        sort: sortMax,
       }
     )
   },
