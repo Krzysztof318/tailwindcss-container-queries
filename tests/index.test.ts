@@ -229,3 +229,73 @@ it('should be possible to use default container queries', () => {
     `)
   })
 })
+
+it('container max & range queries', () => {
+  let config = {
+    content: [
+      {
+        raw: html`
+          <div
+            class="qc-container"
+          >
+            <div class="qc-max-lg:underline"></div>
+            <div class="qc-max-xl:underline"></div>
+
+            <div class="qc-sm:qc-max-lg:underline"></div>
+            <div class="qc-md/container1:qc-max-xl/container1:underline"></div>
+          </div>
+        `,
+      },
+    ],
+    theme: {
+      containers: {
+        sm: '640px',
+        md: '768px',
+        lg: '1024px',
+        xl: '1280px',
+        '2xl': '1536px',
+      },
+    },
+    corePlugins: { preflight: false },
+  }
+
+  let input = css`
+    @tailwind utilities;
+  `
+
+  return run(input, config).then((result) => {
+    expect(result.css).toMatchFormattedCss(css`
+      .qc-container {
+        container-type: inline-size;
+      }
+
+      @container (width < 1024px) {
+        .qc-max-lg\:underline {
+          text-decoration-line: underline;
+        }
+      }
+
+      @container (width < 1280px) {
+        .qc-max-xl\:underline {
+          text-decoration-line: underline;
+        }
+      }
+
+      @container (min-width: 640px) {
+        @container (width < 1024px) {
+          .qc-sm\:qc-max-lg\:underline {
+            text-decoration-line: underline;
+          }
+        }
+      }
+
+      @container container1 (min-width: 768px) {
+        @container container1 (width < 1280px) {
+          .qc-md\/container1\:qc-max-xl\/container1\:underline {
+            text-decoration-line: underline;
+          }
+        }
+      }
+    `)
+  })
+})

@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Nothing yet!
 
+## [0.2.1] - 2023-10-25
+
+- Added suport for max values and ranges
+
 ## [0.2.0] - 2023-10-25
 
 - Updated package.json after fork
