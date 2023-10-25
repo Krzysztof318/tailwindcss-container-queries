@@ -115,13 +115,13 @@ If you have configured Tailwind to use a prefix, make sure to prefix both the `q
 
 By default we ship with the following configured breakpoints:
 
-| Name     | CSS                                          |
-| -------- | -------------------------------------------- |
-| `qc-sm`  | `@container (min-width: 640px)`              |
-| `qc-md`  | `@container (min-width: 768px)`              |
-| `qc-lg`  | `@container (min-width: 1024px)`             |
-| `qc-xl`  | `@container (min-width: 1280px)`             |
-| `qc-2xl` | `@container (min-width: 1536px)`             |
+| Name     | CSS                                          | Name         | CSS                                          |
+| -------- | -------------------------------------------- | ------------ | -------------------------------------------- |
+| `qc-sm`  | `@container (min-width: 640px)`              | `qc-max-sm`  | `@container (width < 640px)`                 |
+| `qc-md`  | `@container (min-width: 768px)`              | `qc-max-md`  | `@container (width < 768px)`                 |
+| `qc-lg`  | `@container (min-width: 1024px)`             | `qc-max-lg`  | `@container (width < 1024px)`                |
+| `qc-xl`  | `@container (min-width: 1280px)`             | `qc-max-xl`  | `@container (width < 1280px)`                |
+| `qc-2xl` | `@container (min-width: 1536px)`             | `qc-max-2xl` | `@container (width < 1536px)`                |
 
 You can configure which values are available for this plugin under the `containers` key in your `tailwind.config.js` file:
 
