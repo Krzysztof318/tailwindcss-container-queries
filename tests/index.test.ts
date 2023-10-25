@@ -86,25 +86,25 @@ it('container queries', () => {
         }
       }
 
-      @container container1 (min-width: 320px) {
+      @container container1 (min-width: 640px) {
         .qc-sm\/container1\:underline {
           text-decoration-line: underline;
         }
       }
 
-      @container container2 (min-width: 320px) {
+      @container container2 (min-width: 640px) {
         .qc-sm\/container2\:underline {
           text-decoration-line: underline;
         }
       }
 
-      @container container10 (min-width: 320px) {
+      @container container10 (min-width: 640px) {
         .qc-sm\/container10\:underline {
           text-decoration-line: underline;
         }
       }
 
-      @container (min-width: 320px) {
+      @container (min-width: 640px) {
         .qc-sm\:underline {
           text-decoration-line: underline;
         }
@@ -192,50 +192,32 @@ it('should be possible to use default container queries', () => {
 
   return run(input, config).then((result) => {
     expect(result.css).toMatchFormattedCss(css`
-      @container (min-width: 20rem) {
-        .qc-xs\:underline {
-          text-decoration-line: underline;
-        }
-      }
-
-      @container (min-width: 24rem) {
+      @container (min-width: 640px) {
         .qc-sm\:underline {
           text-decoration-line: underline;
         }
       }
 
-      @container (min-width: 28rem) {
+      @container (min-width: 768px) {
         .qc-md\:underline {
           text-decoration-line: underline;
         }
       }
 
-      @container (min-width: 32rem) {
+      @container (min-width: 1024px) {
         .qc-lg\:underline {
           text-decoration-line: underline;
         }
       }
 
-      @container (min-width: 48rem) {
-        .qc-3xl\:underline {
+      @container (min-width: 1280px) {
+        .qc-xl\:underline {
           text-decoration-line: underline;
         }
       }
 
-      @container (min-width: 64rem) {
-        .qc-5xl\:underline {
-          text-decoration-line: underline;
-        }
-      }
-
-      @container (min-width: 72rem) {
-        .qc-6xl\:underline {
-          text-decoration-line: underline;
-        }
-      }
-
-      @container (min-width: 80rem) {
-        .qc-7xl\:underline {
+      @container (min-width: 1536px) {
+        .qc-2xl\:underline {
           text-decoration-line: underline;
         }
       }
