@@ -149,7 +149,9 @@ Or override all breakpoints with yours:
 module.exports = {
   theme: {
     containers: {
-      '2xs': '16rem',
+      'xs': '16rem',
+      'md': '32rem',
+      'lg': '48rem',
     },
   },
 }
