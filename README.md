@@ -125,7 +125,7 @@ By default we ship with the following configured breakpoints:
 | `qc-xl`  | `@container (min-width: 1280px)`             | `qc-max-xl`  | `@container (width < 1280px)`                |
 | `qc-2xl` | `@container (min-width: 1536px)`             | `qc-max-2xl` | `@container (width < 1536px)`                |
 
-You can configure which breakpoints are available for this plugin under the `containers` key in your `tailwind.config.js` file:
+You can add breakpoints which are available for this plugin under the `containers` key in your `tailwind.config.js` file:
 
 It will be applied to `qc-{breakpoint}` and `qc-max-{breakpoint}`.
 
@@ -137,6 +137,19 @@ module.exports = {
       containers: {
         '2xs': '16rem',
       },
+    },
+  },
+}
+```
+
+Or override all breakpoints with yours:
+
+```js
+// tailwind.config.js
+module.exports = {
+  theme: {
+    containers: {
+      '2xs': '16rem',
     },
   },
 }
