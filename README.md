@@ -113,7 +113,7 @@ If you have configured Tailwind to use a prefix, make sure to prefix both the `q
 
 ## Configuration
 
-By default we ship with the following configured values:
+By default we ship with the following configured breakpoints:
 
 | Name     | CSS                                          |
 | -------- | -------------------------------------------- |
