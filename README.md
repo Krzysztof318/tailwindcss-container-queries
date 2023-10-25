@@ -100,6 +100,23 @@ To stop an element from acting as a container, use the `qc-container-normal` cla
   <!-- ... -->
 </div>
 
+### Arbitrary container
+
+You can create container with arbitary value:
+
+```html
+<div class="qc-container-[size]">
+  <!-- ... -->
+</div>
+```
+This will be compiled to:
+
+```css
+.qc-container-\[size\] {
+  container-type: size;
+}
+```
+
 ### With a prefix
 
 If you have configured Tailwind to use a prefix, make sure to prefix both the `qc-container` class and any classes where you are using a container query modifier:
