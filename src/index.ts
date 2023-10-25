@@ -30,7 +30,7 @@ export = plugin(
     )
 
     matchVariant(
-      'qc-',
+      'qc',
       (value = '', { modifier }) => {
         let parsed = parseValue(value)
 
