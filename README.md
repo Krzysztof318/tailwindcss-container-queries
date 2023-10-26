@@ -132,6 +132,7 @@ I provided also `qc-container` similar to tailwind container component:
 ```
 
 By default I provide [container sizes](#configuration).
+Containers are not default centered but you can enable this in configuration.
 
 ### With a prefix
 
@@ -162,6 +163,7 @@ Default containers:
 
 | Breakpoint | Properties          |
 | ---------- | ------------------- |
+| `none`     | `width: 100%`       |
 | `240px`    | `max-width: 240px`  |
 | `320px`    | `max-width: 320px`  |
 | `480px`    | `max-width: 480px`  |
@@ -212,6 +214,19 @@ module.exports = {
       '240px',
       '320px',
       '480px',
+    },
+  },
+}
+```
+
+You can enable auto centering for `qc-containers`:
+
+```js
+// tailwind.config.js
+module.exports = {
+  theme: {
+    container: {
+      center: true,
     },
   },
 }
