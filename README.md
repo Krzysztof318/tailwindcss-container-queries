@@ -1,7 +1,9 @@
 # @krzysztof318/tw-container-queries
 
 A plugin for Tailwind CSS v3.2+ that provides utilities for container queries.
-This is fork of original repo https://github.com/tailwindlabs/tailwindcss-container-queries
+
+This is fork of original repo [LINK](https://github.com/tailwindlabs/tailwindcss-container-queries)
+
 I modificated prefix '@' to 'qc-' so now it works better with Razor syntax and I changed default breakpoints to same as tailwind breakpoints. This version also have max and range modifiers.
 
 ## Installation
@@ -38,6 +40,8 @@ Start by marking an element as a container using the `qc-container` class, and t
   </div>
 </div>
 ```
+
+Default `container-type` is `inline-size`.
 
 By default we provide [container sizes](#configuration) from `qc-sm` (`640px`) to `qc-2xl` (`1536px`).
 
@@ -98,6 +102,23 @@ To stop an element from acting as a container, use the `qc-container-normal` cla
   <!-- ... -->
 </div>
 
+### Arbitrary container
+
+You can create container with arbitary value:
+
+```html
+<div class="qc-container-[size]">
+  <!-- ... -->
+</div>
+```
+This will be compiled to:
+
+```css
+.qc-container-\[size\] {
+  container-type: size;
+}
+```
+
 ### With a prefix
 
 If you have configured Tailwind to use a prefix, make sure to prefix both the `qc-container` class and any classes where you are using a container query modifier:
@@ -113,17 +134,19 @@ If you have configured Tailwind to use a prefix, make sure to prefix both the `q
 
 ## Configuration
 
-By default we ship with the following configured values:
+By default we ship with the following configured breakpoints:
 
-| Name     | CSS                                          |
-| -------- | -------------------------------------------- |
-| `qc-sm`  | `@container (min-width: 640px)`              |
-| `qc-md`  | `@container (min-width: 768px)`              |
-| `qc-lg`  | `@container (min-width: 1024px)`             |
-| `qc-xl`  | `@container (min-width: 1280px)`             |
-| `qc-2xl` | `@container (min-width: 1536px)`             |
+| Name     | CSS                                          | Name         | CSS                                          |
+| -------- | -------------------------------------------- | ------------ | -------------------------------------------- |
+| `qc-sm`  | `@container (min-width: 640px)`              | `qc-max-sm`  | `@container (width < 640px)`                 |
+| `qc-md`  | `@container (min-width: 768px)`              | `qc-max-md`  | `@container (width < 768px)`                 |
+| `qc-lg`  | `@container (min-width: 1024px)`             | `qc-max-lg`  | `@container (width < 1024px)`                |
+| `qc-xl`  | `@container (min-width: 1280px)`             | `qc-max-xl`  | `@container (width < 1280px)`                |
+| `qc-2xl` | `@container (min-width: 1536px)`             | `qc-max-2xl` | `@container (width < 1536px)`                |
 
-You can configure which values are available for this plugin under the `containers` key in your `tailwind.config.js` file:
+You can add breakpoints which are available for this plugin under the `containers` key in your `tailwind.config.js` file:
+
+It will be applied to `qc-{breakpoint}` and `qc-max-{breakpoint}`.
 
 ```js
 // tailwind.config.js
@@ -133,6 +156,21 @@ module.exports = {
       containers: {
         '2xs': '16rem',
       },
+    },
+  },
+}
+```
+
+Or override all breakpoints with yours:
+
+```js
+// tailwind.config.js
+module.exports = {
+  theme: {
+    containers: {
+      'xs': '16rem',
+      'md': '32rem',
+      'lg': '48rem',
     },
   },
 }
