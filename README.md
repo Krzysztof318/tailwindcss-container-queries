@@ -4,7 +4,7 @@ A plugin for Tailwind CSS v3.2+ that provides utilities for container queries.
 
 This is fork of original repo [LINK](https://github.com/tailwindlabs/tailwindcss-container-queries)
 
-I modificated prefix '@' to 'qc-' so now it works better with Razor syntax and I changed default breakpoints to same as tailwind breakpoints. This version also have max and range modifiers.
+I modificated prefix '@' to 'qc-' so now it works better with Razor syntax and many other things.
 
 ## Installation
 
