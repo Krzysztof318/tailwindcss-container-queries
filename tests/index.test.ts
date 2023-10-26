@@ -340,7 +340,6 @@ it('container fixed size', () => {
   return run(input, config).then((result) => {
     expect(result.css).toMatchFormattedCss(css`
       .qc-container {
-        width: 100cqi;
         @container (min-width: 240px) {
           max-width: 240px;
         }
@@ -353,9 +352,6 @@ it('container fixed size', () => {
       }
 
       .qc-container\/container1 {
-        @container container1 {
-          width: 100cqi;
-        }
         @container container1 (min-width: 240px) {
           max-width: 240px;
         }
@@ -373,7 +369,6 @@ it('container fixed size', () => {
 
       @container (min-width: 640px) {
         .qc-sm\:qc-container {
-          width: 100cqi;
           @container (min-width: 240px) {
             max-width: 240px;
           }
@@ -388,9 +383,6 @@ it('container fixed size', () => {
 
       @container (min-width: 768px) {
         .qc-md\:qc-container\/container1 {
-          @container container1 {
-            width: 100cqi;
-          }
           @container container1 (min-width: 240px) {
             max-width: 240px;
           }
@@ -400,71 +392,6 @@ it('container fixed size', () => {
           @container container1 (min-width: 1024px) {
             max-width: 1024px;
           }
-        }
-      }
-    `)
-  })
-})
-
-it('container width utility', () => {
-  let config = {
-    content: [
-      {
-        raw: html`
-          <div class="qc-queryable">
-            <div class="qc-w-12"></div>
-            <div class="qc-w-67"></div>
-
-            <div class="qc-w-80/container1"></div>
-            <div class="qc-w-[120px]/container1></div>
-          </div>
-        `,
-      },
-    ],
-    theme: {
-      'qc-queryables': {
-        sm: '640px',
-        md: '768px',
-        lg: '1024px',
-        xl: '1280px',
-        '2xl': '1536px',
-      },
-      'qc-containers': [
-        '240px',
-        '640px',
-        '1024px',
-      ]
-    },
-    corePlugins: { preflight: false },
-  }
-
-  let input = css`
-    @tailwind utilities;
-  `
-
-  return run(input, config).then((result) => {
-    expect(result.css).toMatchFormattedCss(css`
-      .qc-queryable {
-        container-type: inline-size;
-      }
-
-      .qc-w-12 {
-        width: 12cqi;
-      }
-
-      .qc-w-67 {
-        width: 67cqi;
-      }
-
-      .qc-w-80\/container1 {
-        @container container1 {
-          width: 80cqi;
-        }
-      }
-
-      .qc-w-\[120px\]\/container1 {
-        @container container1 {
-          width: 120px;
         }
       }
     `)

@@ -133,30 +133,6 @@ I provided also `qc-container` similar to tailwind container component:
 
 By default I provide [container sizes](#configuration).
 
-## Width utility for named containers
-
-You can use simple width utility with named containers:
-
-```html
-<div class="qc-queryable/sidebar">
-  <div class="qc-queryable">
-    <div class="qc-w-34/sidebar"></div>
-      <!-- Div size 34cqi of parent qc-queryable only if nested in qc-queryable/sidebar -->
-    </div>
-  </div>
-</div>
-```
-
-Arbitrary values also are supported:
-
-```html
-<div class="qc-queryable/sidebar">
-  <div class="qc-w-[250px]/sidebar"></div>
-    <!-- Div size 250px only if nested in qc-queryable/sidebar -->
-  </div>
-</div>
-```
-
 ### With a prefix
 
 If you have configured Tailwind to use a prefix, make sure to prefix both the `qc-queryable` class and any classes where you are using a container query modifier:
@@ -186,7 +162,6 @@ Default containers:
 
 | Breakpoint | Properties          |
 | ---------- | ------------------- |
-| `none`     | `width: 100cqi`     |
 | `240px`    | `max-width: 240px`  |
 | `320px`    | `max-width: 320px`  |
 | `480px`    | `max-width: 480px`  |

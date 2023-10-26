@@ -24,14 +24,6 @@ export = plugin(
         return 0
       })
       let rule: CSSRuleObject = {}
-      if (modifier != null) {
-        rule[`@container ${modifier}`] = {
-          width: '100cqi'
-        }
-      }
-      else {
-        rule.width = '100cqi'
-      }
       sizes.forEach((val) => 
         rule[`@container ${modifier ?? ''} (min-width: ${val})`] = {
           'max-width': val
@@ -68,44 +60,6 @@ export = plugin(
           DEFAULT: 'inline-size',
           normal: 'normal',
         },
-        modifiers: 'any',
-      }
-    )
-
-    function getValuesForWidthCqi(): KeyValuePair<string, string> {
-      let values: KeyValuePair<string, string> = {}
-      for (let i = 1; i <= 100; i++) {
-        values[i] = String(i);
-      }
-      return values
-    }
-
-    function getWidthCqi(value: string, modifier: string | null): CSSRuleObject {
-      let rule: CSSRuleObject = {}
-      if (value.match(/^\d+$/) != null) {
-        value += 'cqi'
-      } 
-      if (parseValue(value) == null) {
-        return rule
-      }
-      if (modifier != null) {
-        rule[`@container ${modifier}`] = {
-          width: value
-        }
-      } else {
-        rule.width = value
-      }
-      return rule
-    }
-
-    matchUtilities(
-      {
-        'qc-w': (value, { modifier }) => {
-          return getWidthCqi(value, modifier)
-        },
-      },
-      {
-        values: getValuesForWidthCqi(),
         modifiers: 'any',
       }
     )
