@@ -24,6 +24,7 @@ export = plugin(
         return 0
       })
       let rule: CSSRuleObject = {}
+      rule.width = '100%'
       if (theme('container.center', false)) {
         rule.marginRight = 'auto';
         rule.marginLeft = 'auto;'
