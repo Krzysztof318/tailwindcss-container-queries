@@ -1,5 +1,5 @@
 import plugin from 'tailwindcss/plugin'
-import { CSSRuleObject } from 'tailwindcss/types/config'
+import { CSSRuleObject, KeyValuePair } from 'tailwindcss/types/config'
 
 export = plugin(
   function containerQueries({ matchComponents, matchUtilities, matchVariant, theme }) {
@@ -68,6 +68,44 @@ export = plugin(
           DEFAULT: 'inline-size',
           normal: 'normal',
         },
+        modifiers: 'any',
+      }
+    )
+
+    function getValuesForWidthCqi(): KeyValuePair<string, string> {
+      let values: KeyValuePair<string, string> = {}
+      for (let i = 1; i <= 100; i++) {
+        values[i] = String(i);
+      }
+      return values
+    }
+
+    function getWidthCqi(value: string, modifier: string | null): CSSRuleObject {
+      let rule: CSSRuleObject = {}
+      if (value.match(/^\d+$/) != null) {
+        value += 'cqi'
+      } 
+      if (parseValue(value) == null) {
+        return rule
+      }
+      if (modifier != null) {
+        rule[`@container ${modifier}`] = {
+          width: value
+        }
+      } else {
+        rule.width = value
+      }
+      return rule
+    }
+
+    matchUtilities(
+      {
+        'qc-w': (value, { modifier }) => {
+          return getWidthCqi(value, modifier)
+        },
+      },
+      {
+        values: getValuesForWidthCqi(),
         modifiers: 'any',
       }
     )
