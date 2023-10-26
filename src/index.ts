@@ -24,6 +24,10 @@ export = plugin(
         return 0
       })
       let rule: CSSRuleObject = {}
+      if (theme('container.center', false)) {
+        rule.marginRight = 'auto';
+        rule.marginLeft = 'auto;'
+      }
       sizes.forEach((val) => 
         rule[`@container ${modifier ?? ''} (min-width: ${val})`] = {
           'max-width': val

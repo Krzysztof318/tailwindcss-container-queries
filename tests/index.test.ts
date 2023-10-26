@@ -397,3 +397,57 @@ it('container fixed size', () => {
     `)
   })
 })
+
+it('container auto center', () => {
+  let config = {
+    content: [
+      {
+        raw: html`
+          <div class="qc-container">
+          </div>
+        `,
+      },
+    ],
+    theme: {
+      'qc-queryables': {
+        sm: '640px',
+        md: '768px',
+        lg: '1024px',
+        xl: '1280px',
+        '2xl': '1536px',
+      },
+      'qc-containers': [
+        '240px',
+        '640px',
+        '1024px',
+      ],
+      container: {
+        center: true,
+      },
+    },
+    corePlugins: { preflight: false },
+  }
+
+  let input = css`
+    @tailwind components;
+    @tailwind utilities;
+  `
+
+  return run(input, config).then((result) => {
+    expect(result.css).toMatchFormattedCss(css`
+      .qc-container {
+        margin-right: auto;
+        margin-left: auto;
+          @container (min-width: 240px) {
+            max-width: 240px;
+          }
+          @container (min-width: 640px) {
+            max-width: 640px;
+          }
+          @container (min-width: 1024px) {
+            max-width: 1024px;
+          }
+      }
+    `)
+  })
+})
