@@ -132,6 +132,7 @@ I provided also `qc-container` similar to tailwind container component:
 ```
 
 By default I provide [container sizes](#configuration).
+
 Containers are not default centered but you can enable this in configuration.
 
 ### With a prefix
