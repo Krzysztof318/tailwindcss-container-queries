@@ -31,10 +31,10 @@ module.exports = {
 
 ## Usage
 
-Start by marking an element as a container using the `qc-container` class, and then applying styles based on the size of that container using the container variants like `qc-md:`, `qc-lg:`, and `qc-xl:`:
+Start by marking an element as a container queryable using the `qc-queryable` class, and then applying styles based on the size of that container using the container variants like `qc-md:`, `qc-lg:`, and `qc-xl:`:
 
 ```html
-<div class="qc-container">
+<div class="qc-queryable">
   <div class="qc-lg:underline">
     <!-- This text will be underlined when the container is larger than or equals `1024px` -->
   </div>
@@ -43,14 +43,14 @@ Start by marking an element as a container using the `qc-container` class, and t
 
 Default `container-type` is `inline-size`.
 
-By default we provide [container sizes](#configuration) from `qc-sm` (`640px`) to `qc-2xl` (`1536px`).
+By default we provide [queryable sizes](#configuration) from `qc-sm` (`640px`) to `qc-2xl` (`1536px`).
 
 ### Max modifiers
 
 You can mark an element with `qc-max-{breakpoint}` class, for example `qc-max-md` (width < 768px), `qc-max-lg` (width < 1024px>).
 
 ```html
-<div class="qc-container">
+<div class="qc-queryable">
   <div class="qc-max-lg:underline">
     <!-- This text will be underlined when the container is smaller than `1024px` -->
   </div>
@@ -62,7 +62,7 @@ You can mark an element with `qc-max-{breakpoint}` class, for example `qc-max-md
 You can mark an element with `qc-{breakpoint}:qc-max-{breakpoint}` class, for example `qc-sm:qc-max-lg` (min-width: 640px and width < 1024px).
 
 ```html
-<div class="qc-container">
+<div class="qc-queryable">
   <div class="qc-sm:qc-max-lg:underline">
     <!-- This text will be underlined when the container is larger than or equals `640px and smaller than `1024px` -->
   </div>
@@ -71,10 +71,10 @@ You can mark an element with `qc-{breakpoint}:qc-max-{breakpoint}` class, for ex
 
 ### Named containers
 
-You can optionally name containers using a `qc-container/{name}` class, and then include that name in the container variants using classes like `qc-lg/{name}:underline`:
+You can optionally name containers using a `qc-queryable/{name}` class, and then include that name in the container variants using classes like `qc-lg/{name}:underline`:
 
 ```html
-<div class="qc-container/main">
+<div class="qc-queryable/main">
   <!-- ... -->
   <div class="qc-lg/main:underline">
     <!-- This text will be underlined when the "main" container is larger than `1024px` -->
@@ -87,7 +87,7 @@ You can optionally name containers using a `qc-container/{name}` class, and then
 In addition to using one of the [container sizes](#configuration) provided by default, you can also create one-off sizes using any arbitrary value:
 
 ```html
-<div class="qc-container">
+<div class="qc-queryable">
   <div class="qc-[17.5rem]:underline"></div>
     <!-- This text will be underlined when the container is larger than `17.5rem` -->
   </div>
@@ -96,9 +96,9 @@ In addition to using one of the [container sizes](#configuration) provided by de
 
 ### Removing a container
 
-To stop an element from acting as a container, use the `qc-container-normal` class.
+To stop an element from acting as a container, use the `qc-queryable-normal` class.
 
-<div class="qc-container xl:qc-container-normal">
+<div class="qc-queryable xl:qc-queryable-normal">
   <!-- ... -->
 </div>
 
@@ -107,24 +107,62 @@ To stop an element from acting as a container, use the `qc-container-normal` cla
 You can create container with arbitary value:
 
 ```html
-<div class="qc-container-[size]">
+<div class="qc-queryable-[size]">
   <!-- ... -->
 </div>
 ```
 This will be compiled to:
 
 ```css
-.qc-container-\[size\] {
+.qc-queryable-\[size\] {
   container-type: size;
 }
 ```
 
-### With a prefix
+### Fixed size container component
 
-If you have configured Tailwind to use a prefix, make sure to prefix both the `qc-container` class and any classes where you are using a container query modifier:
+I provided also `qc-container` similar to tailwind container component:
 
 ```html
-<div class="tw-qc-container">
+<div class="qc-queryable">
+  <div class="qc-container"></div>
+    <!-- Fixed size -->
+  </div>
+</div>
+```
+
+By default I provide [container sizes](#configuration).
+
+## Width utility for named containers
+
+You can use simple width utility with named containers:
+
+```html
+<div class="qc-queryable/sidebar">
+  <div class="qc-queryable">
+    <div class="qc-w-34/sidebar"></div>
+      <!-- Div size 34cqi of parent qc-queryable only if nested in qc-queryable/sidebar -->
+    </div>
+  </div>
+</div>
+```
+
+Arbitrary values also are supported:
+
+```html
+<div class="qc-queryable/sidebar">
+  <div class="qc-w-[250px]/sidebar"></div>
+    <!-- Div size 250px only if nested in qc-queryable/sidebar -->
+  </div>
+</div>
+```
+
+### With a prefix
+
+If you have configured Tailwind to use a prefix, make sure to prefix both the `qc-queryable` class and any classes where you are using a container query modifier:
+
+```html
+<div class="tw-qc-queryable">
   <!-- ... -->
   <div class="qc-lg:tw-underline">
     <!-- ... -->
@@ -144,6 +182,19 @@ By default we ship with the following configured breakpoints:
 | `qc-xl`  | `@container (min-width: 1280px)`             | `qc-max-xl`  | `@container (width < 1280px)`                |
 | `qc-2xl` | `@container (min-width: 1536px)`             | `qc-max-2xl` | `@container (width < 1536px)`                |
 
+Default containers:
+
+| Breakpoint | Properties          |
+| ---------- | ------------------- |
+| `none`     | `width: 100cqi`     |
+| `240px`    | `max-width: 240px`  |
+| `320px`    | `max-width: 320px`  |
+| `480px`    | `max-width: 480px`  |
+| `640px`    | `max-width: 640px`  |
+| `768px`    | `max-width: 768px`  |
+| `1024px`   | `max-width: 1024px` |
+| `1280px`   | `max-width: 1280px` |
+
 You can add breakpoints which are available for this plugin under the `containers` key in your `tailwind.config.js` file:
 
 It will be applied to `qc-{breakpoint}` and `qc-max-{breakpoint}`.
@@ -153,7 +204,7 @@ It will be applied to `qc-{breakpoint}` and `qc-max-{breakpoint}`.
 module.exports = {
   theme: {
     extend: {
-      containers: {
+      'qc-queryables': {
         '2xs': '16rem',
       },
     },
@@ -167,10 +218,25 @@ Or override all breakpoints with yours:
 // tailwind.config.js
 module.exports = {
   theme: {
-    containers: {
+    'qc-queryables': {
       'xs': '16rem',
       'md': '32rem',
       'lg': '48rem',
+    },
+  },
+}
+```
+
+You can also configure containers fixed sizes and their breakpoints:
+
+```js
+// tailwind.config.js
+module.exports = {
+  theme: {
+    'qc-containers': {
+      '240px',
+      '320px',
+      '480px',
     },
   },
 }
