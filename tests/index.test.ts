@@ -340,6 +340,7 @@ it('container fixed size', () => {
   return run(input, config).then((result) => {
     expect(result.css).toMatchFormattedCss(css`
       .qc-container {
+        width: 100%;
         @container (min-width: 240px) {
           max-width: 240px;
         }
@@ -352,6 +353,7 @@ it('container fixed size', () => {
       }
 
       .qc-container\/container1 {
+        width: 100%;
         @container container1 (min-width: 240px) {
           max-width: 240px;
         }
@@ -369,6 +371,7 @@ it('container fixed size', () => {
 
       @container (min-width: 640px) {
         .qc-sm\:qc-container {
+          width: 100%;
           @container (min-width: 240px) {
             max-width: 240px;
           }
@@ -383,6 +386,7 @@ it('container fixed size', () => {
 
       @container (min-width: 768px) {
         .qc-md\:qc-container\/container1 {
+          width: 100%;
           @container container1 (min-width: 240px) {
             max-width: 240px;
           }
@@ -436,6 +440,7 @@ it('container auto center', () => {
   return run(input, config).then((result) => {
     expect(result.css).toMatchFormattedCss(css`
       .qc-container {
+        width: 100%;
         margin-right: auto;
         margin-left: auto;
           @container (min-width: 240px) {
