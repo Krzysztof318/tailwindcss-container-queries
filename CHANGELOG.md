@@ -29,7 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Changed breakpoints to same as in tailwind
 
 [unreleased]: https://github.com/Krzysztof318/tailwindcss-container-queries/compare/v0.3.1...HEAD
-[0.2.2]: https://github.com/Krzysztof318/tailwindcss-container-queries/compare/v0.2.2...v0.3.1
+[0.3.1]: https://github.com/Krzysztof318/tailwindcss-container-queries/compare/v0.2.2...v0.3.1
 [0.2.2]: https://github.com/Krzysztof318/tailwindcss-container-queries/compare/v0.2.1...v0.2.2
 [0.2.1]: https://github.com/Krzysztof318/tailwindcss-container-queries/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/Krzysztof318/tailwindcss-container-queries/releases/tag/v0.2.0
