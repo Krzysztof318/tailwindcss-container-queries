@@ -7,7 +7,7 @@ it('container queries', () => {
       {
         raw: html`
           <div
-            class="qc-container qc-container-normal qc-container/sidebar qc-container-normal/sidebar qc-container-[size]/sidebar"
+            class="qc-queryable qc-queryable-normal qc-queryable/sidebar qc-queryable-normal/sidebar qc-queryable-[size]/sidebar"
           >
             <div class="qc-md:underline"></div>
             <div class="qc-md/container1:underline"></div>
@@ -35,7 +35,7 @@ it('container queries', () => {
       },
     ],
     theme: {
-      containers: {
+      'qc-containers': {
         sm: '640px',
         md: '768px',
         lg: '1024px',
@@ -50,25 +50,25 @@ it('container queries', () => {
 
   return run(input, config).then((result) => {
     expect(result.css).toMatchFormattedCss(css`
-      .qc-container {
+      .qc-queryable {
         container-type: inline-size;
       }
 
-      .qc-container-normal {
+      .qc-queryable-normal {
         container-type: normal;
       }
 
-      .qc-container\/sidebar {
+      .qc-queryable\/sidebar {
         container-type: inline-size;
         container-name: sidebar;
       }
 
-      .qc-container-normal\/sidebar {
+      .qc-queryable-normal\/sidebar {
         container-type: normal;
         container-name: sidebar;
       }
 
-      .qc-container-\[size\]\/sidebar {
+      .qc-queryable-\[size\]\/sidebar {
         container-type: size;
         container-name: sidebar;
       }
@@ -236,7 +236,7 @@ it('container max & range queries', () => {
       {
         raw: html`
           <div
-            class="qc-container"
+            class="qc-queryable"
           >
             <div class="qc-max-lg:underline"></div>
             <div class="qc-max-xl:underline"></div>
@@ -248,7 +248,7 @@ it('container max & range queries', () => {
       },
     ],
     theme: {
-      containers: {
+      'qc-containers': {
         sm: '640px',
         md: '768px',
         lg: '1024px',
@@ -265,7 +265,7 @@ it('container max & range queries', () => {
 
   return run(input, config).then((result) => {
     expect(result.css).toMatchFormattedCss(css`
-      .qc-container {
+      .qc-queryable {
         container-type: inline-size;
       }
 
@@ -293,6 +293,112 @@ it('container max & range queries', () => {
         @container (width < 1024px) {
           .qc-sm\:qc-max-lg\:underline {
             text-decoration-line: underline;
+          }
+        }
+      }
+    `)
+  })
+})
+
+it('container fixed size', () => {
+  let config = {
+    content: [
+      {
+        raw: html`
+          <div class="qc-queryable">
+            <div class="qc-container"></div>
+            <div class="qc-sm:qc-container"></div>
+
+            <div class="qc-container/container1"></div>
+            <div class="qc-md:qc-container/container1"></div>
+          </div>
+        `,
+      },
+    ],
+    theme: {
+      'qc-queryables': {
+        sm: '640px',
+        md: '768px',
+        lg: '1024px',
+        xl: '1280px',
+        '2xl': '1536px',
+      },
+      'qc-containers': [
+        '240px',
+        '640px',
+        '1024px',
+      ]
+    },
+    corePlugins: { preflight: false },
+  }
+
+  let input = css`
+    @tailwind components;
+    @tailwind utilities;
+  `
+
+  return run(input, config).then((result) => {
+    expect(result.css).toMatchFormattedCss(css`
+      .qc-container {
+        width: 100cqi;
+        @container (min-width: 240px) {
+          max-width: 240px;
+        }
+        @container (min-width: 640px) {
+          max-width: 640px;
+        }
+        @container (min-width: 1024px) {
+          max-width: 1024px;
+        }
+      }
+
+      .qc-container\/container1 {
+        @container container1 {
+          width: 100cqi;
+        }
+        @container container1 (min-width: 240px) {
+          max-width: 240px;
+        }
+        @container container1 (min-width: 640px) {
+          max-width: 640px;
+        }
+        @container container1 (min-width: 1024px) {
+          max-width: 1024px;
+        }
+      }
+
+      .qc-queryable {
+        container-type: inline-size;
+      }
+
+      @container (min-width: 640px) {
+        .qc-sm\:qc-container {
+          width: 100cqi;
+          @container (min-width: 240px) {
+            max-width: 240px;
+          }
+          @container (min-width: 640px) {
+            max-width: 640px;
+          }
+          @container (min-width: 1024px) {
+            max-width: 1024px;
+          }
+        }
+      }
+
+      @container (min-width: 768px) {
+        .qc-md\:qc-container\/container1 {
+          @container container1 {
+            width: 100cqi;
+          }
+          @container container1 (min-width: 240px) {
+            max-width: 240px;
+          }
+          @container container1 (min-width: 640px) {
+            max-width: 640px;
+          }
+          @container container1 (min-width: 1024px) {
+            max-width: 1024px;
           }
         }
       }

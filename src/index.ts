@@ -1,8 +1,10 @@
 import plugin from 'tailwindcss/plugin'
+import { CSSRuleObject } from 'tailwindcss/types/config'
 
 export = plugin(
-  function containerQueries({ matchUtilities, matchVariant, theme }) {
-    let values: Record<string, string> = theme('containers') ?? {}
+  function containerQueries({ matchComponents, matchUtilities, matchVariant, theme }) {
+    let queryablesValues: Record<string, string> = theme('qc-queryables') ?? {}
+    let containersValues: Array<string> = theme('qc-containers') ?? {}
 
     function parseValue(value: string) {
       let numericValue = value.match(/^(\d+\.\d+|\d+|\.\d+)\D+/)?.[1] ?? null
@@ -11,9 +13,50 @@ export = plugin(
       return parseFloat(value)
     }
 
-    matchUtilities(
+    function getFixedSizeContainers(modifier: string | null): CSSRuleObject {
+      let sizes = [...containersValues]
+      sizes.sort((a,b) => {
+        let aVal = parseFloat(a)
+        let bVal = parseFloat(b)
+        if (aVal === null || bVal === null) return 0
+        // Sort values themselves regardless of unit
+        if (aVal - bVal !== 0) return aVal - bVal
+        return 0
+      })
+      let rule: CSSRuleObject = {}
+      if (modifier != null) {
+        rule[`@container ${modifier}`] = {
+          width: '100cqi'
+        }
+      }
+      else {
+        rule.width = '100cqi'
+      }
+      sizes.forEach((val) => 
+        rule[`@container ${modifier ?? ''} (min-width: ${val})`] = {
+          'max-width': val
+        }
+      )
+      return rule
+    }
+
+    matchComponents(
       {
         'qc-container': (value, { modifier }) => {
+          return getFixedSizeContainers(modifier)
+        }
+      },
+      {
+        values: {
+          DEFAULT: 'n/a'
+        },
+        modifiers: 'any'
+      }
+    )
+
+    matchUtilities(
+      {
+        'qc-queryable': (value, { modifier }) => {
           return {
             'container-type': value,
             'container-name': modifier,
@@ -79,10 +122,10 @@ export = plugin(
         return -1
       }
 
-      // Sort labels opposite to alphabetically in the English locale
+      // Sort labels alphabetically in the English locale
       // We are intentionally overriding the locale because we do not want the sort to
       // be affected by the machine's locale (be it a developer or CI environment)
-      return zLabel.localeCompare(aLabel, 'en', { numeric: true })
+      return aLabel.localeCompare(zLabel, 'en', { numeric: true })
     }
 
     matchVariant(
@@ -93,7 +136,7 @@ export = plugin(
         return parsed !== null ? `@container ${modifier ?? ''} (min-width: ${value})` : []
       },
       {
-        values,
+        values: queryablesValues,
         sort: sortMin,
       }
     )
@@ -106,20 +149,29 @@ export = plugin(
         return parsed !== null ? `@container ${modifier ?? ''} (width < ${value})` : []
       },
       {
-        values,
+        values: queryablesValues,
         sort: sortMax,
       }
     )
   },
   {
     theme: {
-      containers: {
+      'qc-queryables': {
         sm: '640px',
         md: '768px',
         lg: '1024px',
         xl: '1280px',
         '2xl': '1536px',
       },
+      'qc-containers': [
+        '240px',
+        '320px',
+        '480px',
+        '640px',
+        '768px',
+        '1024px',
+        '1280px',
+      ]
     },
   }
 )
